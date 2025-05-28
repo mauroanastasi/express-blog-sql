@@ -2,19 +2,12 @@ const express = require(`express`);
 
 const router = express.Router();
 
-router.get(`/`, (req, res) => {
-    res.send(`Lista Posts`)
-    console.log(`ok index`)
-});
+const postsController = require(`../controllers/postsController`)
 
-router.get(`/:id`, (req, res) => {
-    res.send(`Dettaglio posts con id ${req.params.id}`)
-    console.log(`ok show`)
-});
+router.get(`/`, postsController.index);
 
-router.delete(`/:id`, (req, res) => {
-    res.send(`Cancellazione del posts con id ${req.params.id}`)
-    console.log(`ok delete`)
-});
+router.get(`/:id`, postsController.show);
+
+router.delete(`/:id`, postsController.destroy);
 
 module.exports = router;
