@@ -16,8 +16,11 @@ const show = (req, res) => {
 };
 
 const destroy = (req, res) => {
-    const id = req.paramss.id
-    connection.query("DELETE FROM posts WHERE id = ?")
+    const id = req.params.id
+    connection.query("DELETE FROM POSTS WHERE id = ?", [id], (err) => {
+        if (err) return res.status(500).json({ error: "Database query failed " + err });
+        res.sendStatus(204)
+    })
 };
 
 module.exports = { index, show, destroy };
