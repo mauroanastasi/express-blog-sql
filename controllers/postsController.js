@@ -12,8 +12,15 @@ const index = (req, res) => {
 };
 
 const show = (req, res) => {
-    res.send(`Dettaglio Posts con id ${req.params.id}`)
-};
+    const id = req.params.id
+    const sql = `SELECT * FROM posts WHERE id = ?`
+    connection.query(sql, [id], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: "Database query failed:" + err });
+        }
+        res.json(results)
+    });
+}
 
 const destroy = (req, res) => {
     const id = req.params.id
